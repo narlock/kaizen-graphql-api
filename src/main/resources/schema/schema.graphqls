@@ -1,7 +1,22 @@
 type Query {
-    """ PROFILE QUERIES """
+    # ###############################
+    #   PROFILE QUERIES
+    # ###############################
     profile(id: ID!): Profile
 }
+
+type Mutation {
+    # ###############################
+    #   PROFILE MUTATIONS
+    # ###############################
+    createProfile(profile: ProfileInput!, health: HealthInput): Profile
+    updateProfile(profile: ProfileInput!, health: HealthInput): Profile
+    deleteProfile(id: ID!): Boolean
+}
+
+# ###############################
+#   PROFILE TYPES
+# ###############################
 
 type Profile {
     id: ID!
@@ -14,6 +29,21 @@ type Profile {
 }
 
 type Health {
+    height: Float
+    weight: Float
+    goalWeight: Float
+    goalWater: Float
+}
+
+input ProfileInput {
+    username: String
+    age: Int
+    birthDate: String
+    imageUrl: String
+    xp: Int
+}
+
+input HealthInput {
     height: Float
     weight: Float
     goalWeight: Float

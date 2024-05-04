@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
 @RequiredArgsConstructor
-public class ProfileDatasource {
+public class ProfileDataSource {
 
   private final WebClient profileWebClient;
   private final ProfileMapper profileMapper;

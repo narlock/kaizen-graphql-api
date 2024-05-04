@@ -1,6 +1,6 @@
 package com.narlock.kaizengraphqlapi.fetcher;
 
-import com.narlock.kaizengraphqlapi.datasource.profile.ProfileDatasource;
+import com.narlock.kaizengraphqlapi.datasource.profile.ProfileDataSource;
 import com.narlock.kaizengraphqlapi.model.profile.Profile;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
@@ -11,10 +11,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProfileDataFetcher {
 
-  private final ProfileDatasource profileDatasource;
+  private final ProfileDataSource profileDataSource;
 
   @DgsQuery
   public Profile profile(@InputArgument Integer id) {
-    return profileDatasource.getProfileById(id);
+    return profileDataSource.getProfileById(id);
   }
 }
