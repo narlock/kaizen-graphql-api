@@ -1,0 +1,21 @@
+type Query {
+    """ PROFILE QUERIES """
+    profile(id: ID!): Profile
+}
+
+type Profile {
+    id: ID!
+    username: String
+    age: Int
+    birthDate: String
+    imageUrl: String
+    xp: Int
+    health: Health
+}
+
+type Health {
+    height: Float
+    weight: Float
+    goalWeight: Float
+    goalWater: Float
+}
