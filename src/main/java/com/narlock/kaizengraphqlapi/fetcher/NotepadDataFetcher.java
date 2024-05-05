@@ -39,4 +39,19 @@ public class NotepadDataFetcher {
     public Boolean writeFile(@InputArgument String name, @InputArgument String content) {
         return notepadDataSource.writeFile(name, content);
     }
+
+    @DgsMutation
+    public Boolean writeCSV(@InputArgument String name, @InputArgument String content) {
+        return notepadDataSource.writeCSV(name, content);
+    }
+
+    @DgsMutation
+    public Boolean deleteFile(@InputArgument String name) {
+        return notepadDataSource.deleteFile(name);
+    }
+
+    @DgsMutation
+    public Boolean deleteCSV(@InputArgument String name) {
+        return notepadDataSource.deleteCSV(name);
+    }
 }

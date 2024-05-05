@@ -65,4 +65,56 @@ public class NotepadDataSource {
       return false;
     }
   }
+
+  public Boolean writeCSV(String name, String content) {
+    try {
+      notepadWebClient
+              .post()
+              .uri(uriBuilder -> uriBuilder.path("/csv/{name}").build(name))
+              .bodyValue(content)
+              .retrieve()
+              .bodyToMono(String.class)
+              .block();
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public Boolean deleteFile(String name) {
+    try {
+      String response = notepadWebClient
+              .delete()
+              .uri(uriBuilder -> uriBuilder.path("/{name}").build(name))
+              .retrieve()
+              .bodyToMono(String.class)
+              .block();
+      if(response.contains("not found")) {
+        return false;
+      }
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
+
+  public Boolean deleteCSV(String name) {
+    try {
+      String response = notepadWebClient
+              .delete()
+              .uri(uriBuilder -> uriBuilder.path("/csv/{name}").build(name))
+              .retrieve()
+              .bodyToMono(String.class)
+              .block();
+      if(response.contains("not found")) {
+        return false;
+      }
+      return true;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
+    }
+  }
 }
