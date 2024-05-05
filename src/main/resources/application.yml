@@ -1,0 +1,9 @@
+kaizen:
+  host: "http://localhost:"
+api:
+  profile:
+    context: "/profile"
+    port: 8079
+  notepad:
+    context: "/notepad"
+    port: 8087

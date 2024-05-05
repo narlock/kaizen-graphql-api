@@ -1,5 +1,6 @@
 package com.narlock.kaizengraphqlapi.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -7,8 +8,28 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
+  @Value("${kaizen.host}")
+  private String HOST;
+
+  @Value("${api.profile.context}")
+  private String PROFILE_CONTEXT;
+
+  @Value("${api.profile.port")
+  private String PROFILE_PORT;
+
   @Bean
   public WebClient profileWebClient() {
-    return WebClient.builder().baseUrl("http://localhost:8079/profile").build();
+    return WebClient.builder().baseUrl(HOST + PROFILE_PORT + PROFILE_CONTEXT).build();
+  }
+
+  @Value("${api.notepad.context}")
+  private String NOTEPAD_CONTEXT;
+
+  @Value("${api.notepad.port}")
+  private String NOTEPAD_PORT;
+
+  @Bean
+  public WebClient notepadWebClient() {
+    return WebClient.builder().baseUrl(HOST + NOTEPAD_PORT + NOTEPAD_CONTEXT).build();
   }
 }

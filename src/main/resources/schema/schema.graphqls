@@ -3,6 +3,14 @@ type Query {
     #   PROFILE QUERIES
     # ###############################
     profile(id: ID!): Profile
+
+    # ###############################
+    #   NOTEPAD QUERIES
+    # ###############################
+    fileContent(name: String!): String!
+    getFiles: [File!]
+    csvContent(name: String!): String!
+    getCSVs: [File!]
 }
 
 type Mutation {
@@ -12,12 +20,19 @@ type Mutation {
     createProfile(profile: ProfileInput!, health: HealthInput): Profile
     updateProfile(profile: ProfileInput!, health: HealthInput): Profile
     deleteProfile(id: ID!): Boolean
+
+    # ###############################
+    #   NOTEPAD MUTATIONS
+    # ###############################
+    writeFile(name: String!, content: String!): Boolean
+    deleteFile(name: String!): Boolean
+    writeCSV(name: String!, content: String!): Boolean
+    deleteCSV(name: String!): Boolean
 }
 
 # ###############################
 #   PROFILE TYPES
 # ###############################
-
 type Profile {
     id: ID!
     username: String
@@ -48,4 +63,12 @@ input HealthInput {
     weight: Float
     goalWeight: Float
     goalWater: Float
+}
+
+# ###############################
+#   NOTEPAD TYPES
+# ###############################
+type File {
+    name: String!
+    lastModified: String!
 }
