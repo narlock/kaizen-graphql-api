@@ -4,6 +4,9 @@ api:
   profile:
     context: "/profile"
     port: 8079
+  weight:
+    context: "/weight"
+    port: 8081
   notepad:
     context: "/notepad"
     port: 8087

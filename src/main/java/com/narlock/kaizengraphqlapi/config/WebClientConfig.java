@@ -22,6 +22,17 @@ public class WebClientConfig {
     return WebClient.builder().baseUrl(HOST + PROFILE_PORT + PROFILE_CONTEXT).build();
   }
 
+  @Value("${api.weight.context}")
+  private String WEIGHT_TRACK_CONTEXT;
+
+  @Value("${api.weight.port}")
+  private String WEIGHT_TRACK_PORT;
+
+  @Bean
+  public WebClient weightTrackWebClient() {
+    return WebClient.builder().baseUrl(HOST + WEIGHT_TRACK_PORT + WEIGHT_TRACK_CONTEXT).build();
+  }
+
   @Value("${api.notepad.context}")
   private String NOTEPAD_CONTEXT;
 

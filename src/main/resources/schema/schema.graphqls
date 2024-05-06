@@ -5,6 +5,12 @@ type Query {
     profile(id: ID!): Profile
 
     # ###############################
+    #   WEIGHT TRACK QUERIES
+    # ###############################
+    weightEntry(date: String!): WeightEntry
+    weightEntriesByRange(startDate: String!, endDate: String!): [WeightEntry!]
+
+    # ###############################
     #   NOTEPAD QUERIES
     # ###############################
     fileContent(name: String!): String!
@@ -20,6 +26,13 @@ type Mutation {
     createProfile(profile: ProfileInput!, health: HealthInput): Profile
     updateProfile(profile: ProfileInput!, health: HealthInput): Profile
     deleteProfile(id: ID!): Boolean
+
+    # ###############################
+    #   WEIGHT TRACK MUTATIONS
+    # ###############################
+    createWeightEntry(weight: Float!, date: String!, meta: String): WeightEntry
+    updateWeightEntryById(id: ID!, weight: Float!, date: String!, meta: String): WeightEntry
+    deleteWeightEntryById(id: ID!): Boolean
 
     # ###############################
     #   NOTEPAD MUTATIONS
@@ -63,6 +76,16 @@ input HealthInput {
     weight: Float
     goalWeight: Float
     goalWater: Float
+}
+
+# ###############################
+#   WEIGHT TRACK TYPES
+# ###############################
+type WeightEntry {
+    id: ID!
+    weight: Float!
+    date: String!
+    meta: String
 }
 
 # ###############################

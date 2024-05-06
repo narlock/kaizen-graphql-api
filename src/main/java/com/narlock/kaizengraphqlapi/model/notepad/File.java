@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class File {
-    private String name;
-    private String lastModified;
+  private String name;
+  private String lastModified;
 }
