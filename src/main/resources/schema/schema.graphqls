@@ -9,6 +9,7 @@ type Query {
     # ###############################
     checklist(name: String!, profileId: Int!): Checklist
     checklistItem(id: ID!): ChecklistItem
+    checklistItems(checklistName: String!): [ChecklistItem!]
 
     # ###############################
     #   WEIGHT TRACK QUERIES
@@ -32,6 +33,17 @@ type Mutation {
     createProfile(profile: ProfileInput!, health: HealthInput): Profile
     updateProfile(profile: ProfileInput!, health: HealthInput): Profile
     deleteProfile(id: ID!): Boolean
+
+    # ###############################
+    #   CHECKLIST MUTATIONS
+    # ###############################
+    createChecklist(name: String!, profileId: Int!, repeatEvery: String): Checklist
+    updateChecklistRepeat(name: String!, profileId: Int!, repeatEvery: String!): Checklist
+    deleteChecklist(name: String!, profileId: Int!): Boolean
+    createChecklistItem(checklistItem: ChecklistItemInput!): ChecklistItem
+    updateChecklistItem(id: ID!, checklistItem: ChecklistItemInput!): ChecklistItem
+    updateChecklistItemStreak(id: ID!): ChecklistItem
+    deleteChecklistItem(id: ID!): ChecklistItem
 
     # ###############################
     #   WEIGHT TRACK MUTATIONS
@@ -101,6 +113,14 @@ type ChecklistItem {
     lastCompletedDate: String
     excludeDays: String
     streak: Int
+}
+
+input ChecklistItemInput {
+    checklistName: String!
+    name: String!
+    description: String
+    lastCompletedDate: String
+    excludeDays: String
 }
 
 # ###############################

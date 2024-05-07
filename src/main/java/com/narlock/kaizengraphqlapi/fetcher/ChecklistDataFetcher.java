@@ -11,15 +11,15 @@ import lombok.RequiredArgsConstructor;
 @DgsComponent
 @RequiredArgsConstructor
 public class ChecklistDataFetcher {
-    private final ChecklistDataSource checklistDataSource;
+  private final ChecklistDataSource checklistDataSource;
 
-    @DgsQuery
-    public Checklist checklist(@InputArgument String name, @InputArgument Integer profileId) {
-        return checklistDataSource.getChecklist(name, profileId);
-    }
+  @DgsQuery
+  public Checklist checklist(@InputArgument String name, @InputArgument Integer profileId) {
+    return checklistDataSource.getChecklist(name, profileId);
+  }
 
-    @DgsQuery
-    public ChecklistItem checklistItem(@InputArgument Integer id) {
-        return checklistDataSource.getChecklistItem(id);
-    }
+  @DgsQuery
+  public ChecklistItem checklistItem(@InputArgument Integer id) {
+    return checklistDataSource.getChecklistItem(id);
+  }
 }

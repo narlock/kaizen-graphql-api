@@ -26,12 +26,17 @@ public class WeightTrackDataFetcher {
   }
 
   @DgsMutation
-  public WeightEntry createWeightEntry(@InputArgument Double weight, @InputArgument String date, @InputArgument String meta) {
+  public WeightEntry createWeightEntry(
+      @InputArgument Double weight, @InputArgument String date, @InputArgument String meta) {
     return weightTrackDataSource.createWeightEntry(weight, date, meta);
   }
 
   @DgsMutation
-  public WeightEntry updateWeightEntryById(@InputArgument Integer id, @InputArgument Double weight, @InputArgument String date, @InputArgument String meta) {
+  public WeightEntry updateWeightEntryById(
+      @InputArgument Integer id,
+      @InputArgument Double weight,
+      @InputArgument String date,
+      @InputArgument String meta) {
     return weightTrackDataSource.updateWeightEntry(id, weight, date, meta);
   }
 

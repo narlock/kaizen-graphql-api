@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Checklist {
-    private String name;
-    private Integer profileId;
-    private String repeatEvery;
+  private String name;
+  private Integer profileId;
+  private String repeatEvery;
 }

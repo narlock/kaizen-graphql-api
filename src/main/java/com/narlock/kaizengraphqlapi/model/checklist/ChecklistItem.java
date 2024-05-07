@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ChecklistItem {
-    private Integer id;
-    private String checklistName;
-    private String name;
-    private String description;
-    private String lastCompletedDate;
-    private Integer streak;
+  private Integer id;
+  private String checklistName;
+  private String name;
+  private String description;
+  private String lastCompletedDate;
+  private Integer streak;
 }
