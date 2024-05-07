@@ -4,6 +4,8 @@ api:
   profile:
     context: "/profile"
     port: 8079
+  checklist:
+    port: 8085
   weight:
     context: "/weight"
     port: 8081

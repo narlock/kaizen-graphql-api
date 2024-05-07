@@ -22,6 +22,14 @@ public class WebClientConfig {
     return WebClient.builder().baseUrl(HOST + PROFILE_PORT + PROFILE_CONTEXT).build();
   }
 
+  @Value("${api.checklist.port}")
+  private String CHECKLIST_PORT;
+
+  @Bean
+  public WebClient checklistWebClient() {
+    return WebClient.builder().baseUrl(HOST + CHECKLIST_PORT).build();
+  }
+
   @Value("${api.weight.context}")
   private String WEIGHT_TRACK_CONTEXT;
 

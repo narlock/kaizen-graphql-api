@@ -5,6 +5,12 @@ type Query {
     profile(id: ID!): Profile
 
     # ###############################
+    #   CHECKLIST QUERIES
+    # ###############################
+    checklist(name: String!, profileId: Int!): Checklist
+    checklistItem(id: ID!): ChecklistItem
+
+    # ###############################
     #   WEIGHT TRACK QUERIES
     # ###############################
     weightEntry(date: String!): WeightEntry
@@ -76,6 +82,25 @@ input HealthInput {
     weight: Float
     goalWeight: Float
     goalWater: Float
+}
+
+# ###############################
+#   PROFILE TYPES
+# ###############################
+type Checklist {
+    name: String!
+    profileId: Int!
+    repeatEvery: String
+}
+
+type ChecklistItem {
+    id: ID!
+    checklistName: String!
+    name: String!
+    description: String
+    lastCompletedDate: String
+    excludeDays: String
+    streak: Int
 }
 
 # ###############################
