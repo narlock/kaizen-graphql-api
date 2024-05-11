@@ -14,7 +14,7 @@ public class WebClientConfig {
   @Value("${api.profile.context}")
   private String PROFILE_CONTEXT;
 
-  @Value("${api.profile.port")
+  @Value("${api.profile.port}")
   private String PROFILE_PORT;
 
   @Bean

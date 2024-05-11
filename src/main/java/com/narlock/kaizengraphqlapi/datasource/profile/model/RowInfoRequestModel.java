@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProfileModel {
-  private KaizenProfileModel profile;
-  private HealthModel health;
-  private List<RowInfoModel> rowInfoList;
+public class RowInfoRequestModel {
+    private Integer rowIndex;
+    private String widgets;
 }
