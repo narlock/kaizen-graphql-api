@@ -8,6 +8,8 @@ import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @DgsComponent
 @RequiredArgsConstructor
 public class ChecklistDataFetcher {
@@ -19,7 +21,12 @@ public class ChecklistDataFetcher {
   }
 
   @DgsQuery
-  public ChecklistItem checklistItem(@InputArgument Integer id) {
-    return checklistDataSource.getChecklistItem(id);
+  public ChecklistItem checklistItem(@InputArgument Integer id, @InputArgument String checklistName, @InputArgument Integer profileId) {
+    return checklistDataSource.getChecklistItem(id, checklistName, profileId);
+  }
+
+  @DgsQuery
+  public List<ChecklistItem> checklistItems(@InputArgument String checklistName, @InputArgument Integer profileId) {
+    return checklistDataSource.getChecklistItems(checklistName, profileId);
   }
 }

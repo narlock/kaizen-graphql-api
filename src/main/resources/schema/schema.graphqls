@@ -8,8 +8,8 @@ type Query {
     #   CHECKLIST QUERIES
     # ###############################
     checklist(name: String!, profileId: Int!): Checklist
-    checklistItem(id: ID!): ChecklistItem
-    checklistItems(checklistName: String!): [ChecklistItem!]
+    checklistItem(id: ID!, checklistName: String!, profileId: Int!): ChecklistItem
+    checklistItems(checklistName: String!, profileId: Int!): [ChecklistItem!]
 
     # ###############################
     #   WEIGHT TRACK QUERIES
@@ -117,6 +117,7 @@ type Checklist {
 type ChecklistItem {
     id: ID!
     checklistName: String!
+    profileId: Int!
     name: String!
     description: String
     lastCompletedDate: String

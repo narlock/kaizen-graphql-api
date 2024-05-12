@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ChecklistItem {
   private Integer id;
   private String checklistName;
+  private Integer profileId;
   private String name;
   private String description;
   private String lastCompletedDate;
