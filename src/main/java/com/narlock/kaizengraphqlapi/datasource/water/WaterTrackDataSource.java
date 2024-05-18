@@ -1,6 +1,6 @@
-package com.narlock.kaizengraphqlapi.datasource.weight;
+package com.narlock.kaizengraphqlapi.datasource.water;
 
-import com.narlock.kaizengraphqlapi.model.weight.WeightEntry;
+import com.narlock.kaizengraphqlapi.model.water.WaterEntry;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -8,31 +8,32 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Component
 @RequiredArgsConstructor
-public class WeightTrackDataSource {
-  private final WebClient weightTrackWebClient;
+public class WaterTrackDataSource {
 
-  public WeightEntry createWeightEntry(WeightEntry weightEntry) {
-    return weightTrackWebClient
+  private final WebClient waterTrackWebClient;
+
+  public WaterEntry createWaterEntry(WaterEntry waterEntry) {
+    return waterTrackWebClient
         .post()
         .uri(uriBuilder -> uriBuilder.build())
-        .bodyValue(weightEntry)
+        .bodyValue(waterEntry)
         .retrieve()
-        .bodyToMono(WeightEntry.class)
+        .bodyToMono(WaterEntry.class)
         .block();
   }
 
-  public WeightEntry updateWeightEntry(WeightEntry weightEntry) {
-    return weightTrackWebClient
-        .put()
+  public WaterEntry addWaterToEntry(WaterEntry waterEntry) {
+    return waterTrackWebClient
+        .patch()
         .uri(uriBuilder -> uriBuilder.build())
-        .bodyValue(weightEntry)
+        .bodyValue(waterEntry)
         .retrieve()
-        .bodyToMono(WeightEntry.class)
+        .bodyToMono(WaterEntry.class)
         .block();
   }
 
-  public Boolean deleteWeightEntriesByProfile(Integer profileId) {
-    weightTrackWebClient
+  public Boolean deleteWaterEntriesByProfile(Integer profileId) {
+    waterTrackWebClient
         .delete()
         .uri(uriBuilder -> uriBuilder.queryParam("profileId", profileId).build())
         .retrieve()
@@ -41,9 +42,9 @@ public class WeightTrackDataSource {
     return true;
   }
 
-  public WeightEntry getWeightEntry(Integer profileId, String entryDate) {
-    List<WeightEntry> weightEntryList =
-        weightTrackWebClient
+  public WaterEntry getWaterEntry(Integer profileId, String entryDate) {
+    List<WaterEntry> waterEntryList =
+        waterTrackWebClient
             .get()
             .uri(
                 uriBuilder ->
@@ -52,25 +53,25 @@ public class WeightTrackDataSource {
                         .queryParam("entryDate", entryDate)
                         .build())
             .retrieve()
-            .bodyToFlux(WeightEntry.class)
+            .bodyToFlux(WaterEntry.class)
             .collectList()
             .block();
-    return weightEntryList.get(0);
+    return waterEntryList.get(0);
   }
 
-  public List<WeightEntry> getWeightEntries(Integer profileId) {
-    return weightTrackWebClient
+  public List<WaterEntry> getWaterEntries(Integer profileId) {
+    return waterTrackWebClient
         .get()
         .uri(uriBuilder -> uriBuilder.queryParam("profileId", profileId).build())
         .retrieve()
-        .bodyToFlux(WeightEntry.class)
+        .bodyToFlux(WaterEntry.class)
         .collectList()
         .block();
   }
 
-  public List<WeightEntry> getWeightEntriesByRange(
+  public List<WaterEntry> getWaterEntriesByRange(
       Integer profileId, String startDate, String endDate) {
-    return weightTrackWebClient
+    return waterTrackWebClient
         .get()
         .uri(
             uriBuilder ->
@@ -81,7 +82,7 @@ public class WeightTrackDataSource {
                     .queryParam("endDate", endDate)
                     .build())
         .retrieve()
-        .bodyToFlux(WeightEntry.class)
+        .bodyToFlux(WaterEntry.class)
         .collectList()
         .block();
   }

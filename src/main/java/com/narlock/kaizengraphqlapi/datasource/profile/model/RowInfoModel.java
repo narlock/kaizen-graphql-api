@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class RowInfoModel {
-    private Integer profileId;
-    private Integer rowIndex;
-    private String widgets;
+  private Integer profileId;
+  private Integer rowIndex;
+  private String widgets;
 }

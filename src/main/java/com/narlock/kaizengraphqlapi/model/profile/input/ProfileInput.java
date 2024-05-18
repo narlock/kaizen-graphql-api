@@ -10,16 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ProfileInput {
-    private Integer profileId;
-    private String username;
-    private Integer age;
-    private String birthDate;
-    private String imageUrl;
-    private Integer xp;
-    private Integer numRows;
-    private String pin;
-    private Double height;
-    private Double weight;
-    private Double goalWeight;
-    private Double goalWater;
+  private Integer profileId;
+  private String username;
+  private Integer age;
+  private String birthDate;
+  private String imageUrl;
+  private Integer xp;
+  private Integer numRows;
+  private String pin;
+  private Double height;
+  private Double weight;
+  private Double goalWeight;
+  private Double goalWater;
 }

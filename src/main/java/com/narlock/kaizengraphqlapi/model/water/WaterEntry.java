@@ -1,4 +1,4 @@
-package com.narlock.kaizengraphqlapi.datasource.profile.model;
+package com.narlock.kaizengraphqlapi.model.water;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RowInfoRequestModel {
-  private Integer rowIndex;
-  private String widgets;
+public class WaterEntry {
+  private Integer profileId;
+  private String entryDate;
+  private Integer entryAmount;
 }

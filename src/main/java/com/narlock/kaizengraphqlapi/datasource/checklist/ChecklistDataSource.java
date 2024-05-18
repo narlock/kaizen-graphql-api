@@ -111,10 +111,13 @@ public class ChecklistDataSource {
   public ChecklistItem getChecklistItem(Integer id, String checklistName, Integer profileId) {
     return checklistWebClient
         .get()
-        .uri(uriBuilder -> uriBuilder.path("/checklist-item/{id}")
-                .queryParam("checklistName", checklistName)
-                .queryParam("profileId", profileId)
-                .build(id))
+        .uri(
+            uriBuilder ->
+                uriBuilder
+                    .path("/checklist-item/{id}")
+                    .queryParam("checklistName", checklistName)
+                    .queryParam("profileId", profileId)
+                    .build(id))
         .retrieve()
         .bodyToMono(ChecklistItem.class)
         .block();
@@ -122,14 +125,17 @@ public class ChecklistDataSource {
 
   public List<ChecklistItem> getChecklistItems(String checklistName, Integer profileId) {
     return checklistWebClient
-            .get()
-            .uri(uriBuilder -> uriBuilder.path("/checklist-item")
+        .get()
+        .uri(
+            uriBuilder ->
+                uriBuilder
+                    .path("/checklist-item")
                     .queryParam("checklistName", checklistName)
                     .queryParam("profileId", profileId)
                     .build())
-            .retrieve()
-            .bodyToFlux(ChecklistItem.class)
-            .collectList()
-            .block();
+        .retrieve()
+        .bodyToFlux(ChecklistItem.class)
+        .collectList()
+        .block();
   }
 }

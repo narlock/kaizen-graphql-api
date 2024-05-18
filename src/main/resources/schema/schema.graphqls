@@ -27,6 +27,13 @@ type Query {
     weightEntriesByRange(profileId: Int!, startDate: String!, endDate: String!): [WeightEntry!]
 
     # ###############################
+    #   WATER TRACK QUERIES
+    # ###############################
+    waterEntry(profileId: Int!, entryDate: String!): WaterEntry
+    waterEntries(profileId: Int!): [WaterEntry!]
+    waterEntriesByRange(profileId: Int!, startDate: String!, endDate: String!): [WaterEntry!]
+
+    # ###############################
     #   NOTEPAD QUERIES
     # ###############################
     fileContent(name: String!): String!
@@ -70,6 +77,13 @@ type Mutation {
     createWeightEntry(profileId: Int!, entryDate: String!, entryAmount: Float!): WeightEntry
     updateWeightEntry(profileId: Int!, entryDate: String!, entryAmount: Float!): WeightEntry
     deleteWeightEntriesByProfile(profileId: Int!): Boolean
+
+    # ###############################
+    #   WATER TRACK MUTATIONS
+    # ###############################
+    createWaterEntry(profileId: Int!, entryDate: String!, entryAmount: Int!): WaterEntry
+    addWaterToEntry(profileId: Int!, entryDate: String!, entryAmount: Int!): WaterEntry
+    deleteWaterEntriesByProfile(profileId: Int!): Boolean
 
     # ###############################
     #   NOTEPAD MUTATIONS

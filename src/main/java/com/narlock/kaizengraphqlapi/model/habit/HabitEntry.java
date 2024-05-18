@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class HabitEntry {
-    private String name;
-    private Integer profileId;
-    private String date;
+  private String name;
+  private Integer profileId;
+  private String date;
 }

@@ -6,9 +6,8 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @DgsComponent
 @RequiredArgsConstructor
@@ -16,13 +15,29 @@ public class WeightTrackDataFetcher {
   private final WeightTrackDataSource weightTrackDataSource;
 
   @DgsMutation
-  public WeightEntry createWeightEntry(@InputArgument Integer profileId, @InputArgument String entryDate, @InputArgument Double entryAmount) {
-    return weightTrackDataSource.createWeightEntry(WeightEntry.builder().profileId(profileId).entryDate(entryDate).entryAmount(entryAmount).build());
+  public WeightEntry createWeightEntry(
+      @InputArgument Integer profileId,
+      @InputArgument String entryDate,
+      @InputArgument Double entryAmount) {
+    return weightTrackDataSource.createWeightEntry(
+        WeightEntry.builder()
+            .profileId(profileId)
+            .entryDate(entryDate)
+            .entryAmount(entryAmount)
+            .build());
   }
 
   @DgsMutation
-  public WeightEntry updateWeightEntry(@InputArgument Integer profileId, @InputArgument String entryDate, @InputArgument Double entryAmount) {
-    return weightTrackDataSource.updateWeightEntry(WeightEntry.builder().profileId(profileId).entryDate(entryDate).entryAmount(entryAmount).build());
+  public WeightEntry updateWeightEntry(
+      @InputArgument Integer profileId,
+      @InputArgument String entryDate,
+      @InputArgument Double entryAmount) {
+    return weightTrackDataSource.updateWeightEntry(
+        WeightEntry.builder()
+            .profileId(profileId)
+            .entryDate(entryDate)
+            .entryAmount(entryAmount)
+            .build());
   }
 
   @DgsMutation
@@ -31,7 +46,8 @@ public class WeightTrackDataFetcher {
   }
 
   @DgsQuery
-  public WeightEntry weightEntry(@InputArgument Integer profileId, @InputArgument String entryDate) {
+  public WeightEntry weightEntry(
+      @InputArgument Integer profileId, @InputArgument String entryDate) {
     return weightTrackDataSource.getWeightEntry(profileId, entryDate);
   }
 
@@ -41,7 +57,10 @@ public class WeightTrackDataFetcher {
   }
 
   @DgsQuery
-  public List<WeightEntry> weightEntriesByRange(@InputArgument Integer profileId, @InputArgument String startDate, @InputArgument String endDate) {
+  public List<WeightEntry> weightEntriesByRange(
+      @InputArgument Integer profileId,
+      @InputArgument String startDate,
+      @InputArgument String endDate) {
     return weightTrackDataSource.getWeightEntriesByRange(profileId, startDate, endDate);
   }
 }

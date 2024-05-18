@@ -4,12 +4,10 @@ import com.narlock.kaizengraphqlapi.datasource.profile.model.ProfileModel;
 import com.narlock.kaizengraphqlapi.datasource.profile.model.RowInfoModel;
 import com.narlock.kaizengraphqlapi.model.profile.Profile;
 import com.narlock.kaizengraphqlapi.model.profile.RowInfo;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ProfileMapper {

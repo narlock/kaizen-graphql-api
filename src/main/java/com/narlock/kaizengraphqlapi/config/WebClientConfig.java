@@ -49,6 +49,17 @@ public class WebClientConfig {
     return WebClient.builder().baseUrl(HOST + WEIGHT_TRACK_PORT + WEIGHT_TRACK_CONTEXT).build();
   }
 
+  @Value("${api.water.context}")
+  private String WATER_TRACK_CONTEXT;
+
+  @Value("${api.water.port}")
+  private String WATER_TRACK_PORT;
+
+  @Bean
+  public WebClient waterTrackWebClient() {
+    return WebClient.builder().baseUrl(HOST + WATER_TRACK_PORT + WATER_TRACK_CONTEXT).build();
+  }
+
   @Value("${api.notepad.context}")
   private String NOTEPAD_CONTEXT;
 

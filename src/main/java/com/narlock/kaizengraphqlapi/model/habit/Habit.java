@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Habit {
-    private String name;
-    private Integer profileId;
+  private String name;
+  private Integer profileId;
 }

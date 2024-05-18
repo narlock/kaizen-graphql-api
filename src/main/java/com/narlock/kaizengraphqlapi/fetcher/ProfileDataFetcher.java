@@ -8,9 +8,8 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @DgsComponent
 @RequiredArgsConstructor
@@ -40,16 +39,18 @@ public class ProfileDataFetcher {
   }
 
   @DgsMutation
-  public List<RowInfo> createRowInfo(@InputArgument Integer profileId,
-                                     @InputArgument Integer rowIndex,
-                                     @InputArgument String widgets) {
+  public List<RowInfo> createRowInfo(
+      @InputArgument Integer profileId,
+      @InputArgument Integer rowIndex,
+      @InputArgument String widgets) {
     return profileDataSource.createRowInfo(profileId, rowIndex, widgets);
   }
 
   @DgsMutation
-  public List<RowInfo> updateRowInfo(@InputArgument Integer profileId,
-                                     @InputArgument Integer rowIndex,
-                                     @InputArgument String widgets) {
+  public List<RowInfo> updateRowInfo(
+      @InputArgument Integer profileId,
+      @InputArgument Integer rowIndex,
+      @InputArgument String widgets) {
     return profileDataSource.updateRowInfo(profileId, rowIndex, widgets);
   }
 

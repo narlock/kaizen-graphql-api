@@ -6,9 +6,8 @@ import com.narlock.kaizengraphqlapi.model.checklist.ChecklistItem;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @DgsComponent
 @RequiredArgsConstructor
@@ -21,12 +20,16 @@ public class ChecklistDataFetcher {
   }
 
   @DgsQuery
-  public ChecklistItem checklistItem(@InputArgument Integer id, @InputArgument String checklistName, @InputArgument Integer profileId) {
+  public ChecklistItem checklistItem(
+      @InputArgument Integer id,
+      @InputArgument String checklistName,
+      @InputArgument Integer profileId) {
     return checklistDataSource.getChecklistItem(id, checklistName, profileId);
   }
 
   @DgsQuery
-  public List<ChecklistItem> checklistItems(@InputArgument String checklistName, @InputArgument Integer profileId) {
+  public List<ChecklistItem> checklistItems(
+      @InputArgument String checklistName, @InputArgument Integer profileId) {
     return checklistDataSource.getChecklistItems(checklistName, profileId);
   }
 }
