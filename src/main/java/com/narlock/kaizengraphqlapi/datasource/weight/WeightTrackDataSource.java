@@ -1,94 +1,82 @@
 package com.narlock.kaizengraphqlapi.datasource.weight;
 
-import static com.narlock.kaizengraphqlapi.util.InputValidationUtil.DATE_FORMATTER;
-
-import com.narlock.kaizengraphqlapi.datasource.weight.model.DateWeightEntryResponse;
-import com.narlock.kaizengraphqlapi.datasource.weight.model.WeightEntryRequest;
 import com.narlock.kaizengraphqlapi.model.weight.WeightEntry;
-import com.narlock.kaizengraphqlapi.util.InputValidationUtil;
-import java.time.LocalDate;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class WeightTrackDataSource {
   private final WebClient weightTrackWebClient;
 
-  public WeightEntry getWeightEntryByDate(String date) {
-    InputValidationUtil.isISOLocalDate(date);
+  public WeightEntry createWeightEntry(WeightEntry weightEntry) {
     return weightTrackWebClient
-        .get()
-        .uri(uriBuilder -> uriBuilder.queryParam("date", date).build())
-        .retrieve()
-        .bodyToMono(WeightEntry.class)
-        .block();
-  }
-
-  public List<WeightEntry> getWeightEntriesByRange(String startDate, String endDate) {
-    InputValidationUtil.areISOLocalDate(startDate, endDate);
-    DateWeightEntryResponse response =
-        weightTrackWebClient
-            .get()
-            .uri(
-                uriBuilder ->
-                    uriBuilder
-                        .path("/range")
-                        .queryParam("startDate", startDate)
-                        .queryParam("endDate", endDate)
-                        .build())
+            .post()
+            .uri(uriBuilder -> uriBuilder.build())
+            .bodyValue(weightEntry)
             .retrieve()
-            .bodyToMono(DateWeightEntryResponse.class)
+            .bodyToMono(WeightEntry.class)
             .block();
-    return response.getEntries();
   }
 
-  public WeightEntry createWeightEntry(Double weight, String date, String meta) {
-    InputValidationUtil.isISOLocalDate(date);
-
-    // Construct weight entry request
-    WeightEntryRequest requestBody = constructWeightEntryRequest(weight, date, meta);
-
+  public WeightEntry updateWeightEntry(WeightEntry weightEntry) {
     return weightTrackWebClient
-        .post()
-        .uri(uriBuilder -> uriBuilder.build())
-        .bodyValue(requestBody)
-        .retrieve()
-        .bodyToMono(WeightEntry.class)
-        .block();
+            .put()
+            .uri(uriBuilder -> uriBuilder.build())
+            .bodyValue(weightEntry)
+            .retrieve()
+            .bodyToMono(WeightEntry.class)
+            .block();
   }
 
-  public WeightEntry updateWeightEntry(Integer id, Double weight, String date, String meta) {
-    InputValidationUtil.isISOLocalDate(date);
-
-    // Construct weight entry request
-    WeightEntryRequest requestBody = constructWeightEntryRequest(weight, date, meta);
-
-    return weightTrackWebClient
-        .put()
-        .uri(uriBuilder -> uriBuilder.path("/{id}").build(id))
-        .bodyValue(requestBody)
-        .retrieve()
-        .bodyToMono(WeightEntry.class)
-        .block();
-  }
-
-  public void deleteWeightEntry(Integer id) {
+  public Boolean deleteWeightEntriesByProfile(Integer profileId) {
     weightTrackWebClient
-        .delete()
-        .uri(uriBuilder -> uriBuilder.path("/{id}").build(id))
-        .retrieve()
-        .bodyToMono(Void.class)
-        .block();
+            .delete()
+            .uri(uriBuilder -> uriBuilder
+                    .queryParam("profileId", profileId).build())
+            .retrieve()
+            .bodyToMono(Void.class)
+            .block();
+    return true;
   }
 
-  private WeightEntryRequest constructWeightEntryRequest(Double weight, String date, String meta) {
-    return WeightEntryRequest.builder()
-        .weight(weight)
-        .date(LocalDate.parse(date, DATE_FORMATTER))
-        .meta(meta)
-        .build();
+  public WeightEntry getWeightEntry(Integer profileId, String entryDate) {
+    List<WeightEntry> weightEntryList = weightTrackWebClient
+            .get()
+            .uri(uriBuilder -> uriBuilder
+                    .queryParam("profileId", profileId)
+                    .queryParam("entryDate", entryDate).build())
+            .retrieve()
+            .bodyToFlux(WeightEntry.class)
+            .collectList()
+            .block();
+    return weightEntryList.get(0);
+  }
+
+  public List<WeightEntry> getWeightEntries(Integer profileId) {
+    return weightTrackWebClient
+            .get()
+            .uri(uriBuilder -> uriBuilder
+                    .queryParam("profileId", profileId).build())
+            .retrieve()
+            .bodyToFlux(WeightEntry.class)
+            .collectList()
+            .block();
+  }
+
+  public List<WeightEntry> getWeightEntriesByRange(Integer profileId, String startDate, String endDate) {
+    return weightTrackWebClient
+            .get()
+            .uri(uriBuilder -> uriBuilder.path("/range")
+                    .queryParam("profileId", profileId)
+                    .queryParam("startDate", startDate)
+                    .queryParam("endDate", endDate).build())
+            .retrieve()
+            .bodyToFlux(WeightEntry.class)
+            .collectList()
+            .block();
   }
 }

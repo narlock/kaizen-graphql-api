@@ -22,8 +22,9 @@ type Query {
     # ###############################
     #   WEIGHT TRACK QUERIES
     # ###############################
-    weightEntry(date: String!): WeightEntry
-    weightEntriesByRange(startDate: String!, endDate: String!): [WeightEntry!]
+    weightEntry(profileId: Int!, entryDate: String!): WeightEntry
+    weightEntries(profileId: Int!): [WeightEntry!]
+    weightEntriesByRange(profileId: Int!, startDate: String!, endDate: String!): [WeightEntry!]
 
     # ###############################
     #   NOTEPAD QUERIES
@@ -66,9 +67,9 @@ type Mutation {
     # ###############################
     #   WEIGHT TRACK MUTATIONS
     # ###############################
-    createWeightEntry(weight: Float!, date: String!, meta: String): WeightEntry
-    updateWeightEntryById(id: ID!, weight: Float!, date: String!, meta: String): WeightEntry
-    deleteWeightEntryById(id: ID!): Boolean
+    createWeightEntry(profileId: Int!, entryDate: String!, entryAmount: Float!): WeightEntry
+    updateWeightEntry(profileId: Int!, entryDate: String!, entryAmount: Float!): WeightEntry
+    deleteWeightEntriesByProfile(profileId: Int!): Boolean
 
     # ###############################
     #   NOTEPAD MUTATIONS
@@ -166,10 +167,18 @@ type HabitEntry {
 #   WEIGHT TRACK TYPES
 # ###############################
 type WeightEntry {
-    id: ID!
-    weight: Float!
-    date: String!
-    meta: String
+    profileId: Int!
+    entryDate: String!
+    entryAmount: Float!
+}
+
+# ###############################
+#   WATER TRACK TYPES
+# ###############################
+type WaterEntry {
+    profileId: Int!
+    entryDate: String!
+    entryAmount: Int!
 }
 
 # ###############################

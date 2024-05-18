@@ -10,8 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class WeightEntry {
-  private Integer id;
-  private Double weight;
-  private String date;
-  private String meta;
+  private Integer profileId;
+  private String entryDate;
+  private Double entryAmount;
 }

@@ -11,6 +11,9 @@ api:
   weight:
     context: "/weight"
     port: 8081
+  water:
+    context: "/water"
+    port: 8083
   notepad:
     context: "/notepad"
     port: 8087

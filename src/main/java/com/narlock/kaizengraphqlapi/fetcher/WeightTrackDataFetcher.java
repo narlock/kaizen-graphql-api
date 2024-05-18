@@ -6,43 +6,42 @@ import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @DgsComponent
 @RequiredArgsConstructor
 public class WeightTrackDataFetcher {
   private final WeightTrackDataSource weightTrackDataSource;
 
+  @DgsMutation
+  public WeightEntry createWeightEntry(@InputArgument Integer profileId, @InputArgument String entryDate, @InputArgument Double entryAmount) {
+    return weightTrackDataSource.createWeightEntry(WeightEntry.builder().profileId(profileId).entryDate(entryDate).entryAmount(entryAmount).build());
+  }
+
+  @DgsMutation
+  public WeightEntry updateWeightEntry(@InputArgument Integer profileId, @InputArgument String entryDate, @InputArgument Double entryAmount) {
+    return weightTrackDataSource.updateWeightEntry(WeightEntry.builder().profileId(profileId).entryDate(entryDate).entryAmount(entryAmount).build());
+  }
+
+  @DgsMutation
+  public Boolean deleteWeightEntriesByProfile(@InputArgument Integer profileId) {
+    return weightTrackDataSource.deleteWeightEntriesByProfile(profileId);
+  }
+
   @DgsQuery
-  public WeightEntry weightEntry(@InputArgument String date) {
-    return weightTrackDataSource.getWeightEntryByDate(date);
+  public WeightEntry weightEntry(@InputArgument Integer profileId, @InputArgument String entryDate) {
+    return weightTrackDataSource.getWeightEntry(profileId, entryDate);
   }
 
   @DgsQuery
-  public List<WeightEntry> weightEntriesByRange(
-      @InputArgument String startDate, @InputArgument String endDate) {
-    return weightTrackDataSource.getWeightEntriesByRange(startDate, endDate);
+  public List<WeightEntry> weightEntries(@InputArgument Integer profileId) {
+    return weightTrackDataSource.getWeightEntries(profileId);
   }
 
-  @DgsMutation
-  public WeightEntry createWeightEntry(
-      @InputArgument Double weight, @InputArgument String date, @InputArgument String meta) {
-    return weightTrackDataSource.createWeightEntry(weight, date, meta);
-  }
-
-  @DgsMutation
-  public WeightEntry updateWeightEntryById(
-      @InputArgument Integer id,
-      @InputArgument Double weight,
-      @InputArgument String date,
-      @InputArgument String meta) {
-    return weightTrackDataSource.updateWeightEntry(id, weight, date, meta);
-  }
-
-  @DgsMutation
-  public Boolean deleteWeightEntryById(@InputArgument Integer id) {
-    weightTrackDataSource.deleteWeightEntry(id);
-    return true;
+  @DgsQuery
+  public List<WeightEntry> weightEntriesByRange(@InputArgument Integer profileId, @InputArgument String startDate, @InputArgument String endDate) {
+    return weightTrackDataSource.getWeightEntriesByRange(profileId, startDate, endDate);
   }
 }
