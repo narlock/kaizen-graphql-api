@@ -6,6 +6,8 @@ api:
     port: 8079
   checklist:
     port: 8085
+  habit:
+    port: 8089
   weight:
     context: "/weight"
     port: 8081

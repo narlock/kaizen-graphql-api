@@ -12,6 +12,15 @@ type Query {
     checklistItems(checklistName: String!, profileId: Int!): [ChecklistItem!]
 
     # ###############################
+    #   HABIT QUERIES
+    # ###############################
+    habit(name: String!, profileId: Int!): Habit!
+    habits(profileId: Int!): [Habit!]
+    habitEntryDate(name: String!, profileId: Int!, date: String!): String!
+    habitEntries(name: String!, profileId: Int!): [String!]
+    habitStreak(name: String!, profileId: Int!): Int!
+
+    # ###############################
     #   WEIGHT TRACK QUERIES
     # ###############################
     weightEntry(date: String!): WeightEntry
@@ -47,6 +56,13 @@ type Mutation {
     updateChecklistItem(id: ID!, checklistItem: ChecklistItemInput!): ChecklistItem
     updateChecklistItemStreak(id: ID!): ChecklistItem
     deleteChecklistItem(id: ID!): ChecklistItem
+
+    # ###############################
+    #   HABIT MUTATIONS
+    # ###############################
+    createHabit(name: String!, profileId: Int!): Habit!
+    createHabitEntry(name: String!, profileId: Int!): HabitEntry!
+    deleteHabit(name: String!, profileId: Int!): Boolean
 
     # ###############################
     #   WEIGHT TRACK MUTATIONS
@@ -106,7 +122,7 @@ input ProfileInput {
 }
 
 # ###############################
-#   PROFILE TYPES
+#   CHECKLIST TYPES
 # ###############################
 type Checklist {
     name: String!
@@ -131,6 +147,20 @@ input ChecklistItemInput {
     description: String
     lastCompletedDate: String
     excludeDays: String
+}
+
+# ###############################
+#   HABIT TYPES
+# ###############################
+type Habit {
+    name: String!
+    profileId: Int!
+}
+
+type HabitEntry {
+    name: String!
+    profileId: Int!
+    date: String!
 }
 
 # ###############################

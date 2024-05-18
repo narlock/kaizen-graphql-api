@@ -22,6 +22,14 @@ public class WebClientConfig {
     return WebClient.builder().baseUrl(HOST + PROFILE_PORT + PROFILE_CONTEXT).build();
   }
 
+  @Value("${api.habit.port}")
+  private String HABIT_PORT;
+
+  @Bean
+  public WebClient habitWebClient() {
+    return WebClient.builder().baseUrl(HOST + HABIT_PORT).build();
+  }
+
   @Value("${api.checklist.port}")
   private String CHECKLIST_PORT;
 
