@@ -14,7 +14,6 @@ type Query {
     # ###############################
     #   HABIT QUERIES
     # ###############################
-    habit(name: String!, profileId: Int!): Habit!
     habits(profileId: Int!): [Habit!]
     habitEntryDate(name: String!, profileId: Int!, date: String!): String!
     habitEntries(name: String!, profileId: Int!): [String!]
@@ -61,7 +60,7 @@ type Mutation {
     #   HABIT MUTATIONS
     # ###############################
     createHabit(name: String!, profileId: Int!): Habit!
-    createHabitEntry(name: String!, profileId: Int!): HabitEntry!
+    createHabitEntry(name: String!, profileId: Int!, date: String!): HabitEntry!
     deleteHabit(name: String!, profileId: Int!): Boolean
 
     # ###############################

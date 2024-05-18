@@ -1,11 +1,15 @@
 package com.narlock.kaizengraphqlapi.datasource.habit;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.narlock.kaizengraphqlapi.model.habit.Habit;
 import com.narlock.kaizengraphqlapi.model.habit.HabitEntry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -60,28 +64,42 @@ public class HabitDataSource {
     }
 
     public List<String> getCompletedDatesForHabit(String name, Integer profileId) {
-        return habitWebClient
+        Mono<List<String>> response = habitWebClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path("/habit-entry")
                         .queryParam("name", name)
                         .queryParam("profileId", profileId).build())
                 .retrieve()
-                .bodyToFlux(String.class)
-                .collectList()
-                .block();
+                .bodyToMono(String.class)
+                .map(jsonString -> {
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        return mapper.readValue(jsonString, new TypeReference<>() {
+                        });
+                    } catch (Exception e) {
+                        throw new RuntimeException("Error parsing JSON", e);
+                    }
+                });
+
+        return response.block();
     }
 
     public String getHabitByDate(String name, Integer profileId, String date) {
-        List<String> dates = habitWebClient
-                .get()
-                .uri(uriBuilder -> uriBuilder.path("/habit-entry")
-                        .queryParam("name", name)
-                        .queryParam("profileId", profileId).build())
-                .retrieve()
-                .bodyToFlux(String.class)
-                .collectList()
-                .block();
-        return dates.get(0);
+        try {
+            List<String> dates = habitWebClient
+                    .get()
+                    .uri(uriBuilder -> uriBuilder.path("/habit-entry")
+                            .queryParam("name", name)
+                            .queryParam("profileId", profileId)
+                            .queryParam("date", date).build())
+                    .retrieve()
+                    .bodyToFlux(String.class)
+                    .collectList()
+                    .block();
+            return date;
+        } catch (WebClientResponseException e) {
+            throw e;
+        }
     }
 
     public Boolean deleteHabit(String name, Integer profileId) {
