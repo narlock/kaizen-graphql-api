@@ -93,5 +93,6 @@ public class HabitDataSource {
                 .retrieve()
                 .bodyToMono(Void.class)
                 .block();
+        return true;
     }
 }
