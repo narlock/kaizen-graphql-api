@@ -99,4 +99,16 @@ public class ProfileDataSource {
         .bodyToMono(Void.class)
         .block();
   }
+
+  public Profile addXpToProfile(Integer id, Integer xp) {
+    ProfileModel profileModel = profileWebClient
+            .post()
+            .uri(uriBuilder -> uriBuilder.path("/xp")
+                    .queryParam("id", id)
+                    .queryParam("xp", xp).build())
+            .retrieve()
+            .bodyToMono(ProfileModel.class)
+            .block();
+    return profileMapper.map(profileModel);
+  }
 }

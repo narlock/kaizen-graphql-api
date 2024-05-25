@@ -49,6 +49,7 @@ type Mutation {
     createProfile(input: ProfileInput!): Profile
     updateProfile(input: ProfileInput!): Profile
     deleteProfile(id: ID!): Boolean
+    addXpToProfile(id: Int!, xp: Int!): Profile
 
     # ###############################
     #   CHECKLIST MUTATIONS

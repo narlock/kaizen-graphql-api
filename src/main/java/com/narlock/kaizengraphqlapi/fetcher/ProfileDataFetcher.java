@@ -34,4 +34,9 @@ public class ProfileDataFetcher {
     profileDataSource.deleteProfile(id);
     return true;
   }
+
+  @DgsMutation
+  public Profile addXpToProfile(@InputArgument Integer id, @InputArgument Integer xp) {
+    return profileDataSource.addXpToProfile(id, xp);
+  }
 }
