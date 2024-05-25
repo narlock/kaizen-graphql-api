@@ -11,13 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Profile {
-  private Integer id;
-  private String username;
-  private String birthDate;
-  private String imageUrl;
-  private Integer xp;
-  private Integer numRows;
-  private String pin;
+  private ProfileDetails profile;
   private Health health;
-  private List<RowInfo> rows;
+  private List<RowInfo> rowInfoList;
 }

@@ -12,15 +12,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ProfileMapper {
 
-  @Mapping(target = "id", source = "profileModel.profile.id")
-  @Mapping(target = "username", source = "profileModel.profile.username")
-  @Mapping(target = "birthDate", source = "profileModel.profile.birthDate")
-  @Mapping(target = "imageUrl", source = "profileModel.profile.imageUrl")
-  @Mapping(target = "xp", source = "profileModel.profile.xp")
-  @Mapping(target = "numRows", source = "profileModel.profile.numRows")
-  @Mapping(target = "pin", source = "profileModel.profile.pin")
+  @Mapping(target = "profile", source = "profile")
   @Mapping(target = "health", source = "health")
-  @Mapping(target = "rows", source = "rowInfoList")
+  @Mapping(target = "rowInfoList", source = "rowInfoList")
   Profile map(ProfileModel profileModel);
 
   default List<RowInfo> mapRowInfoList(List<RowInfoModel> rowInfoModels) {

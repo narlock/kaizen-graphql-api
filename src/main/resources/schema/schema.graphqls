@@ -49,9 +49,6 @@ type Mutation {
     createProfile(input: ProfileInput!): Profile
     updateProfile(input: ProfileInput!): Profile
     deleteProfile(id: ID!): Boolean
-    createRowInfo(profileId: Int!, rowIndex: Int!, widgets: String!): [RowInfo!]
-    updateRowInfo(profileId: Int!, rowIndex: Int!, widgets: String!): [RowInfo!]
-    deleteRowInfo(profileId: Int!, rowIndex: Int!): Boolean
 
     # ###############################
     #   CHECKLIST MUTATIONS
@@ -98,6 +95,12 @@ type Mutation {
 #   PROFILE TYPES
 # ###############################
 type Profile {
+    profile: ProfileDetails
+    health: Health
+    rowInfoList: [RowInfo!]
+}
+
+type ProfileDetails {
     id: ID!
     username: String
     birthDate: String
@@ -105,8 +108,6 @@ type Profile {
     xp: Int
     numRows: Int
     pin: String
-    health: Health
-    rows: [RowInfo!]
 }
 
 type Health {
@@ -117,22 +118,38 @@ type Health {
 }
 
 type RowInfo {
+    profileId: Int
     rowIndex: Int!
     widgets: String
 }
 
 input ProfileInput {
-    profileId: Int
+    profile: ProfileDetailsInput
+    health: HealthInput
+    rowInfoList: [RowInfoInput!]
+}
+
+input ProfileDetailsInput {
+    id: ID!
     username: String
     birthDate: String
     imageUrl: String
     xp: Int
     numRows: Int
     pin: String
+}
+
+input HealthInput {
     height: Float
     weight: Float
     goalWeight: Float
     goalWater: Float
+}
+
+input RowInfoInput {
+    profileId: Int!
+    rowIndex: Int!
+    widgets: String
 }
 
 # ###############################

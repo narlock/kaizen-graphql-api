@@ -5,7 +5,6 @@ import com.narlock.kaizengraphqlapi.datasource.profile.model.RowInfoModel;
 import com.narlock.kaizengraphqlapi.datasource.profile.model.RowInfoRequestModel;
 import com.narlock.kaizengraphqlapi.model.profile.Profile;
 import com.narlock.kaizengraphqlapi.model.profile.RowInfo;
-import com.narlock.kaizengraphqlapi.model.profile.input.ProfileInput;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class ProfileDataSource {
     return profileMapper.map(profileModel);
   }
 
-  public Profile createProfile(ProfileInput input) {
+  public Profile createProfile(Profile input) {
     ProfileModel profileModel =
         profileWebClient
             .post()
@@ -41,7 +40,7 @@ public class ProfileDataSource {
     return profileMapper.map(profileModel);
   }
 
-  public Profile updateProfile(ProfileInput input) {
+  public Profile updateProfile(Profile input) {
     ProfileModel profileModel =
         profileWebClient
             .put()
