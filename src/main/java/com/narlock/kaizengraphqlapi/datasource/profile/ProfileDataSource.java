@@ -101,11 +101,12 @@ public class ProfileDataSource {
   }
 
   public Profile addXpToProfile(Integer id, Integer xp) {
-    ProfileModel profileModel = profileWebClient
+    ProfileModel profileModel =
+        profileWebClient
             .post()
-            .uri(uriBuilder -> uriBuilder.path("/xp")
-                    .queryParam("id", id)
-                    .queryParam("xp", xp).build())
+            .uri(
+                uriBuilder ->
+                    uriBuilder.path("/xp").queryParam("id", id).queryParam("xp", xp).build())
             .retrieve()
             .bodyToMono(ProfileModel.class)
             .block();

@@ -1,5 +1,10 @@
+spring:
+  config:
+    import: "file:${user.home}/Documents/narlock/secrets/mysql.properties"
+
 kaizen:
-  host: "http://localhost:"
+  host: "http://${lan.address}:"
+
 api:
   profile:
     context: "/profile"
