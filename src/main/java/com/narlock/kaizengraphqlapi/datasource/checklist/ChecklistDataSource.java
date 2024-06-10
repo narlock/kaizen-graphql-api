@@ -24,18 +24,18 @@ public class ChecklistDataSource {
         .block();
   }
 
-  public Checklist getChecklist(String name, Integer profileId) {
+  public List<Checklist> getChecklists(Integer profileId) {
     return checklistWebClient
         .get()
         .uri(
             uriBuilder ->
                 uriBuilder
                     .path("/checklist")
-                    .queryParam("name", name)
                     .queryParam("profileId", profileId)
                     .build())
         .retrieve()
-        .bodyToMono(Checklist.class)
+        .bodyToFlux(Checklist.class)
+            .collectList()
         .block();
   }
 
@@ -137,5 +137,16 @@ public class ChecklistDataSource {
         .bodyToFlux(ChecklistItem.class)
         .collectList()
         .block();
+  }
+
+  public ChecklistItem completeChecklistItem(Integer id, String checklistName, Integer profileId) {
+    return checklistWebClient
+            .patch()
+            .uri(uriBuilder -> uriBuilder.path("/checklist-item/{id}/complete")
+                    .queryParam("checklistName", checklistName)
+                    .queryParam("profileId", profileId).build(id))
+            .retrieve()
+            .bodyToMono(ChecklistItem.class)
+            .block();
   }
 }

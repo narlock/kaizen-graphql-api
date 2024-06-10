@@ -7,7 +7,7 @@ type Query {
     # ###############################
     #   CHECKLIST QUERIES
     # ###############################
-    checklist(name: String!, profileId: Int!): Checklist
+    checklists(profileId: Int!): [Checklist!]
     checklistItem(id: ID!, checklistName: String!, profileId: Int!): ChecklistItem
     checklistItems(checklistName: String!, profileId: Int!): [ChecklistItem!]
 
@@ -55,12 +55,13 @@ type Mutation {
     #   CHECKLIST MUTATIONS
     # ###############################
     createChecklist(name: String!, profileId: Int!, repeatEvery: String): Checklist
+    completeChecklistItem(id: ID!, checklistName: String!, profileId: Int!): ChecklistItem
     updateChecklistRepeat(name: String!, profileId: Int!, repeatEvery: String!): Checklist
     deleteChecklist(name: String!, profileId: Int!): Boolean
     createChecklistItem(checklistItem: ChecklistItemInput!): ChecklistItem
     updateChecklistItem(id: ID!, checklistItem: ChecklistItemInput!): ChecklistItem
     updateChecklistItemStreak(id: ID!): ChecklistItem
-    deleteChecklistItem(id: ID!): ChecklistItem
+    deleteChecklistItem(id: ID!): Boolean
 
     # ###############################
     #   HABIT MUTATIONS
@@ -174,6 +175,7 @@ type ChecklistItem {
 }
 
 input ChecklistItemInput {
+    profileId: Int!
     checklistName: String!
     name: String!
     description: String
