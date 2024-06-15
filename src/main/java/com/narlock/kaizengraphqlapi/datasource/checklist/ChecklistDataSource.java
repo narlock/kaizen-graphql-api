@@ -13,41 +13,41 @@ public class ChecklistDataSource {
   private final WebClient checklistWebClient;
 
   public Checklist createChecklist(String name, Integer profileId, String repeatEvery) {
+    // Use the body to create checklist
     Checklist requestBody =
         Checklist.builder().name(name).profileId(profileId).repeatEvery(repeatEvery).build();
-    return checklistWebClient
+
+    // Create Checklist
+    Checklist createdChecklist = checklistWebClient
         .post()
         .uri(uriBuilder -> uriBuilder.path("/checklist").build())
         .bodyValue(requestBody)
         .retrieve()
         .bodyToMono(Checklist.class)
         .block();
+
+    // Retrieve data for checklist items
+    List<ChecklistItem> itemsInChecklist = getChecklistItems(name, profileId);
+    createdChecklist.setItems(itemsInChecklist);
+    return createdChecklist;
   }
 
   public List<Checklist> getChecklists(Integer profileId) {
-    return checklistWebClient
+    // Retrieve the checklists
+    List<Checklist> checklists = checklistWebClient
         .get()
         .uri(uriBuilder -> uriBuilder.path("/checklist").queryParam("profileId", profileId).build())
         .retrieve()
         .bodyToFlux(Checklist.class)
         .collectList()
         .block();
-  }
 
-  public Checklist updateChecklistRepeat(String name, Integer profileId, String repeatEvery) {
-    return checklistWebClient
-        .patch()
-        .uri(
-            uriBuilder ->
-                uriBuilder
-                    .path("/checklist")
-                    .queryParam("name", name)
-                    .queryParam("profileId", profileId)
-                    .queryParam("repeatEvery", repeatEvery)
-                    .build())
-        .retrieve()
-        .bodyToMono(Checklist.class)
-        .block();
+    // Populate the checklist items in each checklist
+    for(Checklist checklist : checklists) {
+      List<ChecklistItem> items = getChecklistItems(checklist.getName(), profileId);
+      checklist.setItems(items);
+    }
+    return checklists;
   }
 
   public void deleteChecklist(String name, Integer profileId) {

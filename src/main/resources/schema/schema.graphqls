@@ -161,6 +161,7 @@ type Checklist {
     name: String!
     profileId: Int!
     repeatEvery: String
+    items: [ChecklistItem!]
 }
 
 type ChecklistItem {
