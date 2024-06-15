@@ -27,15 +27,10 @@ public class ChecklistDataSource {
   public List<Checklist> getChecklists(Integer profileId) {
     return checklistWebClient
         .get()
-        .uri(
-            uriBuilder ->
-                uriBuilder
-                    .path("/checklist")
-                    .queryParam("profileId", profileId)
-                    .build())
+        .uri(uriBuilder -> uriBuilder.path("/checklist").queryParam("profileId", profileId).build())
         .retrieve()
         .bodyToFlux(Checklist.class)
-            .collectList()
+        .collectList()
         .block();
   }
 
@@ -141,12 +136,16 @@ public class ChecklistDataSource {
 
   public ChecklistItem completeChecklistItem(Integer id, String checklistName, Integer profileId) {
     return checklistWebClient
-            .patch()
-            .uri(uriBuilder -> uriBuilder.path("/checklist-item/{id}/complete")
+        .patch()
+        .uri(
+            uriBuilder ->
+                uriBuilder
+                    .path("/checklist-item/{id}/complete")
                     .queryParam("checklistName", checklistName)
-                    .queryParam("profileId", profileId).build(id))
-            .retrieve()
-            .bodyToMono(ChecklistItem.class)
-            .block();
+                    .queryParam("profileId", profileId)
+                    .build(id))
+        .retrieve()
+        .bodyToMono(ChecklistItem.class)
+        .block();
   }
 }

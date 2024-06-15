@@ -16,7 +16,10 @@ public class ChecklistDataFetcher {
   private final ChecklistDataSource checklistDataSource;
 
   @DgsMutation
-  public Checklist createChecklist(@InputArgument String name, @InputArgument Integer profileId, @InputArgument String repeatEvery) {
+  public Checklist createChecklist(
+      @InputArgument String name,
+      @InputArgument Integer profileId,
+      @InputArgument String repeatEvery) {
     return checklistDataSource.createChecklist(name, profileId, repeatEvery);
   }
 
@@ -57,7 +60,10 @@ public class ChecklistDataFetcher {
   }
 
   @DgsMutation
-  public ChecklistItem completeChecklistItem(@InputArgument Integer id, @InputArgument String checklistName, @InputArgument Integer profileId) {
+  public ChecklistItem completeChecklistItem(
+      @InputArgument Integer id,
+      @InputArgument String checklistName,
+      @InputArgument Integer profileId) {
     return checklistDataSource.completeChecklistItem(id, checklistName, profileId);
   }
 }
