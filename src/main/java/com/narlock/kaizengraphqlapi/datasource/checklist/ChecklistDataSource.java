@@ -18,13 +18,14 @@ public class ChecklistDataSource {
         Checklist.builder().name(name).profileId(profileId).repeatEvery(repeatEvery).build();
 
     // Create Checklist
-    Checklist createdChecklist = checklistWebClient
-        .post()
-        .uri(uriBuilder -> uriBuilder.path("/checklist").build())
-        .bodyValue(requestBody)
-        .retrieve()
-        .bodyToMono(Checklist.class)
-        .block();
+    Checklist createdChecklist =
+        checklistWebClient
+            .post()
+            .uri(uriBuilder -> uriBuilder.path("/checklist").build())
+            .bodyValue(requestBody)
+            .retrieve()
+            .bodyToMono(Checklist.class)
+            .block();
 
     // Retrieve data for checklist items
     List<ChecklistItem> itemsInChecklist = getChecklistItems(name, profileId);
@@ -34,16 +35,19 @@ public class ChecklistDataSource {
 
   public List<Checklist> getChecklists(Integer profileId) {
     // Retrieve the checklists
-    List<Checklist> checklists = checklistWebClient
-        .get()
-        .uri(uriBuilder -> uriBuilder.path("/checklist").queryParam("profileId", profileId).build())
-        .retrieve()
-        .bodyToFlux(Checklist.class)
-        .collectList()
-        .block();
+    List<Checklist> checklists =
+        checklistWebClient
+            .get()
+            .uri(
+                uriBuilder ->
+                    uriBuilder.path("/checklist").queryParam("profileId", profileId).build())
+            .retrieve()
+            .bodyToFlux(Checklist.class)
+            .collectList()
+            .block();
 
     // Populate the checklist items in each checklist
-    for(Checklist checklist : checklists) {
+    for (Checklist checklist : checklists) {
       List<ChecklistItem> items = getChecklistItems(checklist.getName(), profileId);
       checklist.setItems(items);
     }
